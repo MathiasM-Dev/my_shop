@@ -1,0 +1,38 @@
+{%  extends 'base.html.twig' %}
+{% block title %}Ajouter du stock{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="mt-5 mb-5">Modification du stock de : {{ product.name }} (restant : {{product.stock}})</h1>
+         {{ include ('layouts/_flash_message.html.twig') }}
+        <table class="table mt-5">
+            <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Prix</th>
+                <th>stock</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <td>{{ product.name }}</td>
+                <td>{{ product.description|slice(0,60) }} ...</td><!--Decoupe la description et met ... à la fin-->
+                <td>{{ product.price }}</td>
+                <td>
+                    {% if product.stock > 0  %}
+                        {{ product.stock }}  
+                    {% else %}
+                        <span class="text-danger">Stock épuisé</span>
+                    {% endif %}
+                </td> 
+                </tr>
+            </tbody>
+        </table>
+            {{ form_start(form) }}
+                {{ form_row(form.quantity, {'attr':{'class':'form form-control mb-3'}}) }}
+                <input type="submit" class='btn btn-success btn-block'>
+            {{ form_end(form) }}
+    </div>
+
+{% endblock %}
